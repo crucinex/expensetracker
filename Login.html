@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpenseTracker - Login</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* background-color: #121212; */
+            background:repeating-linear-gradient(135deg, #4C3BCF, #3DC2EC);
+
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .header {
+            background: #1a1a1a;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2F80ED;
+            text-decoration: none;
+        }
+
+        /* Login Container */
+        .login-container {
+            max-width: 400px;
+            margin: 4rem auto;
+            padding: 2rem;
+            background: #1a1a1a;
+            border-radius: 10px;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            flex-grow: 1;
+        }
+
+        .login-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .login-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .login-header p {
+            color: #a0a0a0;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2d2d2d;
+            border: 1px solid #3d3d3d;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2F80ED;
+        }
+
+        .remember-forgot {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 1.5rem 0;
+        }
+
+        .checkbox-label {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: #a0a0a0;
+        }
+
+        .forgot-password {
+            color: #2F80ED;
+            text-decoration: none;
+            font-size: 0.9rem;
+        }
+
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            background: #2F80ED;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .login-button:hover {
+            background: #2567c2;
+            transform: translateY(-2px);
+        }
+
+        .signup-text {
+            text-align: center;
+            margin-top: 2rem;
+            color: #a0a0a0;
+        }
+
+        .signup-link {
+            color: #2F80ED;
+            text-decoration: none;
+            margin-left: 0.5rem;
+        }
+
+        /* Social Login */
+        .social-login {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            padding: 0.8rem;
+            border-radius: 50%;
+            background: #2d2d2d;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: #2F80ED;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+        }
+        /*Login button animation*/
+        .login-button {
+            width: 100%;
+            padding: 1rem;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(
+                135deg,
+                #2F80ED 0%,
+                #56CCF2 50%,
+                #2F80ED 100%
+            );
+            background-size: 200% auto;
+            animation: gradientAnim 3s linear infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnim {
+            0% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+            100% {
+                background-position: 0% center;
+            }
+        }
+
+        .login-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(47, 128, 237, 0.4);
+            animation-duration: 1.5s;
+        }
+
+        .login-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .login-button:hover::before {
+            opacity: 1;
+        }
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">ExpenseTracker</a>
+        </nav>
+    </header>
+
+    <!-- Login Container -->
+    <div class="login-container">
+        <div class="login-header">
+            <h1>Welcome Back</h1>
+            <p>Sign in to continue to your ExpenseTracker account</p>
+        </div>
+
+        <form id="loginForm">
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" 
+                       class="form-input" 
+                       id="email" 
+                       name="email" 
+                       required
+                       placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" 
+                       class="form-input" 
+                       id="password" 
+                       name="password" 
+                       required
+                       placeholder="Enter your password">
+            </div>
+
+            <div class="remember-forgot">
+                <label class="checkbox-label">
+                    <input type="checkbox" name="remember">
+                    Remember me
+                </label>
+                <a href="#forgot-password" class="forgot-password">Forgot Password?</a>
+            </div>
+
+            <button type="submit" class="login-button">Log In</button>
+        </form>
+
+        <div class="social-login">
+            <p>Or continue with</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-apple"></i>
+                </a>
+                <!-- <a href="#" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a> -->
+            </div>
+        </div>
+
+        <p class="signup-text">
+            Don't have an account?
+            <a href="#signup" class="signup-link">Create Account</a>
+        </p>
+    </div>
+</body>
+</html>
