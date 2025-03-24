@@ -1,0 +1,318 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ExpenseTracker - Sign Up</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            /* background-color: #121212; */
+            background:repeating-linear-gradient(135deg, #4C3BCF, #3DC2EC);
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Header Styles */
+        .header {
+            background: #1a1a1a;
+            padding: 1rem 5%;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+        }
+
+        .logo {
+            font-size: 1.8rem;
+            font-weight: bold;
+            color: #2F80ED;
+            text-decoration: none;
+        }
+
+        /* Signup Container */
+        .signup-container {
+            max-width: 400px;
+            margin: 5rem auto;
+            padding: 2rem;
+            background: #1a1a1a;
+            border-radius: 20px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+            flex-grow: 1;
+        }
+
+        .signup-header {
+            text-align: center;
+            margin-bottom: 2rem;
+        }
+
+        .signup-header h1 {
+            font-size: 1.8rem;
+            margin-bottom: 0.5rem;
+        }
+
+        .signup-header p {
+            color: #a0a0a0;
+        }
+
+        /* Form Styles */
+        .form-group {
+            margin-bottom: 1.5rem;
+        }
+
+        .form-label {
+            display: block;
+            margin-bottom: 0.5rem;
+            color: #e0e0e0;
+        }
+
+        .form-input {
+            width: 100%;
+            padding: 0.8rem;
+            background: #2d2d2d;
+            border: 1px solid #3d3d3d;
+            border-radius: 5px;
+            color: #e0e0e0;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-input:focus {
+            outline: none;
+            border-color: #2F80ED;
+        }
+
+        .password-strength {
+            margin-top: 0.5rem;
+            font-size: 0.9rem;
+            color: #a0a0a0;
+        }
+
+        .terms-agreement {
+            margin: 1.5rem 0;
+            display: flex;
+            gap: 0.5rem;
+        }
+
+        .terms-text {
+            color: #a0a0a0;
+            font-size: 0.9rem;
+        }
+
+        .terms-link {
+            color: #2F80ED;
+            text-decoration: none;
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 1rem;
+            background: #2F80ED;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .signup-button:hover {
+            background: #2567c2;
+            transform: translateY(-2px);
+        }
+
+        .login-text {
+            text-align: center;
+            margin-top: 2rem;
+            color: #a0a0a0;
+        }
+
+        .login-link {
+            color: #2F80ED;
+            text-decoration: none;
+            margin-left: 0.5rem;
+        }
+
+        /* Social Signup */
+        .social-signup {
+            margin-top: 2rem;
+            text-align: center;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1rem;
+        }
+
+        .social-icon {
+            font-size: 1.5rem;
+            color: #e0e0e0;
+            padding: 0.8rem;
+            border-radius: 50%;
+            background: #2d2d2d;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: #2F80ED;
+            transform: translateY(-2px);
+        }
+
+        @media (max-width: 480px) {
+            .signup-container {
+                margin: 2rem 1rem;
+                padding: 1.5rem;
+            }
+        }
+
+        .signup-button {
+            width: 100%;
+            padding: 1rem;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            font-size: 1rem;
+            font-weight: bold;
+            cursor: pointer;
+            transition: all 0.3s;
+            background: linear-gradient(
+                135deg,
+                #2F80ED 0%,
+                #56CCF2 50%,
+                #2F80ED 100%
+            );
+            background-size: 200% auto;
+            animation: gradientAnim 3s linear infinite;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientAnim {
+            0% {
+                background-position: 0% center;
+            }
+            50% {
+                background-position: 100% center;
+            }
+            100% {
+                background-position: 0% center;
+            }
+        }
+
+        .signup-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 5px 15px rgba(47, 128, 237, 0.4);
+            animation-duration: 1.5s;
+        }
+
+        .signup-button::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: rgba(255, 255, 255, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s;
+        }
+
+        .signup-button:hover::before {
+            opacity: 1;
+        }
+
+        
+    </style>
+</head>
+<body>
+    <!-- Header -->
+    <header class="header">
+        <nav class="nav">
+            <a href="/" class="logo">ExpenseTracker</a>
+        </nav>
+    </header>
+
+    <!-- Signup Container -->
+    <div class="signup-container">
+        <div class="signup-header">
+            <h1>Create Your Account</h1>
+            <p>Start managing your finances smarter today</p>
+        </div>
+
+        <form id="signupForm">
+            <!-- <div class="form-group">
+                <label class="form-label" for="name">Full Name</label>
+                <input type="text" 
+                       class="form-input" 
+                       id="name" 
+                       name="name" 
+                       required
+                       placeholder="Enter your full name">
+            </div> -->
+
+            <div class="form-group">
+                <label class="form-label" for="email">Email</label>
+                <input type="email" 
+                       class="form-input" 
+                       id="email" 
+                       name="email" 
+                       required
+                       placeholder="Enter your email">
+            </div>
+
+            <div class="form-group">
+                <label class="form-label" for="password">Password</label>
+                <input type="password" 
+                       class="form-input" 
+                       id="password" 
+                       name="password" 
+                       required
+                       placeholder="Create a password">
+                <div class="password-strength">
+                    Minimum 8 characters with numbers and symbols
+                </div>
+            </div>
+
+            <div class="terms-agreement">
+                <input type="checkbox" id="terms" required>
+                <label for="terms" class="terms-text">
+                    I agree to the <a href="#terms" class="terms-link">Terms of Service</a> and 
+                    <a href="#privacy" class="terms-link">Privacy Policy</a>
+                </label>
+            </div>
+
+            <button type="submit" class="signup-button">Create Account</button>
+        </form>
+
+        <div class="social-signup">
+            <p>Or Log in with</p>
+            <div class="social-icons">
+                <a href="#" class="social-icon">
+                    <i class="fab fa-google"></i>
+                </a>
+                <a href="#" class="social-icon">
+                    <i class="fab fa-apple"></i>
+                </a>
+                <!-- <a href="#" class="social-icon">
+                    <i class="fab fa-github"></i>
+                </a> -->
+            </div>
+        </div>
+
+        <p class="login-text">
+            Already have an account?
+            <a href="#login" class="login-link">Log In</a>
+        </p>
+    </div>
+</body>
+</html>
