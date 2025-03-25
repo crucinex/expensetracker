@@ -5,167 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>ExpenseTracker Pro - Smart Finance Management</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-        }
-
-        body {
-            background: #0a192f; 
-            color: #e6f1ff;
-            line-height: 1.6;
-        }
-
-        /* Header Styles */
-        .header {
-            background: rgba(10, 25, 47, 0.95);
-            padding: 1rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
-        }
-
-        .nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #64ffda;
-        }
-
-        .nav-links a {
-            margin-left: 2rem;
-            text-decoration: none;
-            color: #e6f1ff;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: #64ffda;
-        }
-
-        /* Hero Section */
-        .hero {
-            padding: 12rem 5% 6rem;
-            text-align: center;
-            /* background: linear-gradient(135deg, #0a192f 0%, #112240 100%); */
-            /* background:repeating-linear-gradient(135deg, #012A4A, #014F86); */
-            background:repeating-linear-gradient(135deg, #4C3BCF, #3DC2EC);
-        }
-
-        .hero h1 {
-            font-size: 3rem;
-            margin-bottom: 1.5rem;
-            color: #ffffff;
-
-        }
-
-        .hero p {
-            font-size: 1.2rem;
-            color: #90e0ef;
-            max-width: 600px;
-            margin: 0 auto 2rem;
-        }
-
-        .cta-button {
-            background: #64ffda;
-            color: #184e77;
-            padding: 1rem 2.5rem;
-            border-radius: 20px;
-            text-decoration: none;
-            font-weight: bold;
-            transition: transform 0.3s;
-            display: inline-block;
-        }
-
-        .cta-button:hover {
-            transform: translateY(-3px);
-        }
-
-        /* Features Section */
-        .features {
-            padding: 4rem 5%;
-            /* background: #112240; */
-            background:repeating-linear-gradient(135deg, #3DC2EC, #4C3BCF);
-        }
-
-        .features-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 1.5rem;
-            max-width: 1400px;
-            margin: 1.5rem auto;
-        }
-
-        .feature-card {
-            background: #233554;
-            padding: 2rem;
-            border-radius: 8px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .feature-card:hover {
-            transform: translateY(-5px);
-        }
-
-        .feature-icon {
-            font-size: 2.5rem;
-            color: #64ffda;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card h3 {
-            color: #ffffff;
-            margin-bottom: 1rem;
-        }
-
-        .feature-card p {
-            color: #79d5d5;
-        }
-
-        /* Footer */
-        .footer {
-            background: #0a192f;
-            padding: 3rem 5%;
-            /* margin-top: 1rem; */
-        }
-
-        .footer-content {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1000px;
-            margin: 0 auto;
-        }
-
-        .footer h4 {
-            color: #64ffda;
-            margin-bottom: 1rem;
-        }
-
-        @media (max-width: 768px) {
-            .nav-links {
-                display: none;
-            }
-            
-            .hero h1 {
-                font-size: 2rem;
-            }
-        }
-    </style>
+    <link rel="stylesheet" href="indexstyle.css">
 </head>
 <body>
     <!-- Header -->
@@ -230,7 +70,7 @@
 
     <!-- Footer -->
     <footer class="footer">
-        <div class="footer-content">
+        <!-- <div class="footer-content">
             <div>
                 <h4>ExpenseTracker</h4>
                 <p>Making financial management accessible for everyone</p>
@@ -253,7 +93,74 @@
                 <p>Contact</p>
                 <p>API Docs</p>
             </div>
-        </div>
+        </div> -->
+        <footer class="footer">
+            <div class="footer-content">
+                <div>
+                    <h4>ExpenseTracker</h4>
+                    <p>Making financial management accessible for everyone</p>
+                </div>
+                <div>
+                    <h4>Product</h4>
+                    <p>Features</p>
+                    <p>Security</p>
+                    <p>Pricing</p>
+                </div>
+                <div>
+                    <h4>Company</h4>
+                    <p>About</p>
+                    <p>Blog</p>
+                    <p>Careers</p>
+                </div>
+                <div>
+                    <h4>Resources</h4>
+                    <p>Support</p>
+                    <p>Documentation</p>
+                    <p>API Docs</p>
+                </div>
+                <div>
+                    <h4>Contact</h4>
+                    <div class="contact-methods">
+                        <div class="contact-item">
+                            <i class="fas fa-envelope contact-icon"></i>
+                            <span>support@expensetracker.com</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-phone contact-icon"></i>
+                            <span>+91 999-999-9999</span>
+                        </div>
+                        <div class="contact-item">
+                            <i class="fas fa-map-marker-alt contact-icon"></i>
+                            <span>Bangalore,India</span>
+                        </div>
+                    </div>
+                    <div class="social-links">
+                        <a href="#" class="social-link">
+                            <i class="fab fa-twitter"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-linkedin"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-facebook"></i>
+                        </a>
+                        <a href="#" class="social-link">
+                            <i class="fab fa-instagram"></i>
+                        </a>
+                    </div>
+                </div>
+            </div>
+            <div class="footer-contact">
+                <div class="contact-info">
+                    <p align="center">© 2023 ExpenseTracker. All rights reserved</p>
+                    <!-- <div class="legal-links">
+                        <a href="#privacy">Privacy Policy</a>
+                        <a href="#terms">Terms of Service</a>
+                        <a href="#cookies">Cookie Settings</a>
+                    </div> -->
+                </div>
+            </div>
+    </footer>
     </footer>
 </body>
 </html>
