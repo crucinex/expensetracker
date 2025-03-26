@@ -78,12 +78,15 @@ body {
     border-radius: 20px;
     text-decoration: none;
     font-weight: bold;
-    transition: transform 0.3s;
     display: inline-block;
+    transition: all 0.3s ease;
+    color: #333;
 }
 
 .cta-button:hover {
     transform: translateY(-3px);
+    color: #ffffff;
+    background: #373ada;
 }
 
 /* Features Section */
@@ -205,4 +208,7 @@ body {
 
 .social-link:hover {
     color: #64ffda;
+}
+html{
+    scroll-behavior: smooth;
 }
