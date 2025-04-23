@@ -10,224 +10,249 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
         }
 
         body {
-            /* background-color: #121212; */
-            background:repeating-linear-gradient(135deg, #4C3BCF, #3DC2EC);
-
-            color: #e0e0e0;
+            background: linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%);
+            color: #e6f1ff;
             min-height: 100vh;
             display: flex;
             flex-direction: column;
+            overflow-x: hidden;
         }
 
         /* Header Styles */
         .header {
-            background: #1a1a1a;
-            padding: 1rem 5%;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.3);
+            background: rgba(10, 25, 47, 0.85);
+            padding: 1.2rem 5%;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            backdrop-filter: blur(12px);
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
         }
 
         .logo {
-            font-size: 1.8rem;
-            font-weight: bold;
-            color: #2F80ED;
+            font-size: 1.9rem;
+            font-weight: 700;
+            color: #64ffda;
             text-decoration: none;
+            letter-spacing: 1px;
         }
 
         /* Login Container */
         .login-container {
-            max-width: 400px;
-            margin: 5rem auto;
-            padding: 2rem;
-            background: #1a1a1a;
-            border-radius: 20px;
-            box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+            max-width: 450px;
+            margin: 7rem auto;
+            padding: 2.5rem;
+            background: rgba(35, 53, 84, 0.7);
+            border-radius: 16px;
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+            backdrop-filter: blur(10px);
+            border: 1px solid rgba(100, 255, 218, 0.2);
             flex-grow: 1;
+            transition: transform 0.3s ease;
+        }
+
+        .login-container:hover {
+            transform: translateY(-5px);
         }
 
         .login-header {
             text-align: center;
-            margin-bottom: 2rem;
+            margin-bottom: 2.5rem;
         }
 
         .login-header h1 {
-            font-size: 1.8rem;
-            margin-bottom: 0.5rem;
+            font-size: 2rem;
+            font-weight: 700;
+            margin-bottom: 0.75rem;
+            color: #ffffff;
+            text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
         }
 
         .login-header p {
-            color: #a0a0a0;
+            color: #a5b4fc;
+            font-size: 1.1rem;
         }
 
         /* Form Styles */
         .form-group {
-            margin-bottom: 1.5rem;
+            margin-bottom: 1.8rem;
+            position: relative;
         }
 
         .form-label {
             display: block;
-            margin-bottom: 0.5rem;
-            color: #e0e0e0;
+            margin-bottom: 0.6rem;
+            color: #e6f1ff;
+            font-size: 0.95rem;
+            font-weight: 500;
         }
 
         .form-input {
             width: 100%;
-            padding: 0.8rem;
-            background: #2d2d2d;
-            border: 1px solid #3d3d3d;
-            border-radius: 5px;
-            color: #e0e0e0;
+            padding: 1rem;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            border-radius: 8px;
+            color: #e6f1ff;
             font-size: 1rem;
-            transition: border-color 0.3s;
+            transition: all 0.3s ease;
         }
 
         .form-input:focus {
             outline: none;
-            border-color: #2F80ED;
+            border-color: #64ffda;
+            background: rgba(255, 255, 255, 0.1);
+            box-shadow: 0 0 8px rgba(100, 255, 218, 0.3);
+        }
+
+        .form-input::placeholder {
+            color: #8892b0;
         }
 
         .remember-forgot {
             display: flex;
             justify-content: space-between;
             align-items: center;
-            margin: 1.5rem 0;
+            margin: 1.8rem 0;
         }
 
         .checkbox-label {
             display: flex;
             align-items: center;
-            gap: 0.5rem;
-            color: #a0a0a0;
-        }
-
-        .forgot-password {
-            color: #2F80ED;
-            text-decoration: none;
+            gap: 0.6rem;
+            color: #a5b4fc;
             font-size: 0.9rem;
         }
 
+        .forgot-password {
+            color: #64ffda;
+            text-decoration: none;
+            font-size: 0.9rem;
+            transition: color 0.3s ease;
+        }
+
+        .forgot-password:hover {
+            color: #22d3ee;
+        }
+
         .login-button {
             width: 100%;
-            padding: 1rem;
-            background: #2F80ED;
-            color: white;
+            padding: 1.2rem;
+            background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+            color: #0a192f;
             border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
+            border-radius: 50px;
+            font-size: 1.1rem;
+            font-weight: 600;
             cursor: pointer;
-            transition: all 0.3s;
-        }
-
-        .login-button:hover {
-            background: #2567c2;
-            transform: translateY(-2px);
-        }
-
-        .signup-text {
-            text-align: center;
-            margin-top: 2rem;
-            color: #a0a0a0;
-        }
-
-        .signup-link {
-            color: #2F80ED;
-            text-decoration: none;
-            margin-left: 0.5rem;
-        }
-
-        /* Social Login */
-        .social-login {
-            margin-top: 2rem;
-            text-align: center;
-        }
-
-        .social-icons {
-            display: flex;
-            justify-content: center;
-            gap: 1rem;
-            margin-top: 1rem;
-        }
-
-        .social-icon {
-            font-size: 1.5rem;
-            color: #e0e0e0;
-            padding: 0.8rem;
-            border-radius: 50%;
-            background: #2d2d2d;
-            transition: all 0.3s;
-            text-decoration: none;
-        }
-
-        .social-icon:hover {
-            background: #2F80ED;
-            transform: translateY(-2px);
-        }
-
-        @media (max-width: 480px) {
-            .login-container {
-                margin: 2rem 1rem;
-                padding: 1.5rem;
-            }
-        }
-        /*Login button animation*/
-        .login-button {
-            width: 100%;
-            padding: 1rem;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            font-size: 1rem;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.3s;
-            background: linear-gradient(
-                135deg,
-                #2F80ED 0%,
-                #56CCF2 50%,
-                #2F80ED 100%
-            );
-            background-size: 200% auto;
-            animation: gradientAnim 3s linear infinite;
+            transition: all 0.3s ease;
+            box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
             position: relative;
             overflow: hidden;
         }
 
-        @keyframes gradientAnim {
-            0% {
-                background-position: 0% center;
-            }
-            50% {
-                background-position: 100% center;
-            }
-            100% {
-                background-position: 0% center;
-            }
-        }
-
         .login-button:hover {
-            transform: translateY(-2px);
-            box-shadow: 0 5px 15px rgba(47, 128, 237, 0.4);
-            animation-duration: 1.5s;
+            transform: translateY(-3px);
+            box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+            background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
         }
 
         .login-button::before {
             content: '';
             position: absolute;
             top: 0;
-            left: 0;
-            right: 0;
-            bottom: 0;
-            background: rgba(255, 255, 255, 0.1);
-            opacity: 0;
-            transition: opacity 0.3s;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.2), transparent);
+            transition: 0.5s;
         }
 
         .login-button:hover::before {
-            opacity: 1;
+            left: 100%;
+        }
+
+        .signup-text {
+            text-align: center;
+            margin-top: 2.5rem;
+            color: #a5b4fc;
+            font-size: 0.95rem;
+        }
+
+        .signup-link {
+            color: #64ffda;
+            text-decoration: none;
+            margin-left: 0.5rem;
+            font-weight: 500;
+            transition: color 0.3s ease;
+        }
+
+        .signup-link:hover {
+            color: #22d3ee;
+        }
+
+        /* Social Login */
+        .social-login {
+            margin-top: 2.5rem;
+            text-align: center;
+        }
+
+        .social-login p {
+            color: #a5b4fc;
+            font-size: 0.95rem;
+            margin-bottom: 1.2rem;
+        }
+
+        .social-icons {
+            display: flex;
+            justify-content: center;
+            gap: 1.5rem;
+        }
+
+        .social-icon {
+            font-size: 1.8rem;
+            color: #e6f1ff;
+            padding: 0.8rem;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(100, 255, 218, 0.2);
+            transition: all 0.3s ease;
+            text-decoration: none;
+        }
+
+        .social-icon:hover {
+            background: rgba(100, 255, 218, 0.2);
+            color: #64ffda;
+            transform: translateY(-3px);
+            box-shadow: 0 4px 10px rgba(100, 255, 218, 0.3);
+        }
+
+        @media (max-width: 480px) {
+            .login-container {
+                margin: 3rem 1.5rem;
+                padding: 2rem;
+            }
+
+            .login-header h1 {
+                font-size: 1.8rem;
+            }
+
+            .login-header p {
+                font-size: 1rem;
+            }
+
+            .form-input {
+                padding: 0.9rem;
+            }
+
+            .login-button {
+                padding: 1rem;
+            }
         }
     </style>
 </head>
@@ -254,7 +279,8 @@
                        id="email" 
                        name="email" 
                        required
-                       placeholder="Enter your email">
+                       placeholder="Enter your email"
+                       aria-describedby="emailHelp">
             </div>
 
             <div class="form-group">
@@ -264,12 +290,13 @@
                        id="password" 
                        name="password" 
                        required
-                       placeholder="Enter your password">
+                       placeholder="Enter your password"
+                       aria-describedby="passwordHelp">
             </div>
 
             <div class="remember-forgot">
                 <label class="checkbox-label">
-                    <input type="checkbox" name="remember">
+                    <input type="checkbox" name="remember" aria-label="Remember me">
                     Remember me
                 </label>
                 <a href="#forgot-password" class="forgot-password">Forgot Password?</a>
@@ -281,15 +308,12 @@
         <div class="social-login">
             <p>Or continue with</p>
             <div class="social-icons">
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" aria-label="Sign in with Google">
                     <i class="fab fa-google"></i>
                 </a>
-                <a href="#" class="social-icon">
+                <a href="#" class="social-icon" aria-label="Sign in with Apple">
                     <i class="fab fa-apple"></i>
                 </a>
-                <!-- <a href="#" class="social-icon">
-                    <i class="fab fa-github"></i>
-                </a> -->
             </div>
         </div>
 

@@ -1,325 +1,2025 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Dashboard - ExpenseTracker</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <link rel="stylesheet" href="home.css">
-    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-    <script src="home.js"></script>
-</head>
-<body>
-    <!-- Sidebar -->
-    <nav class="sidebar">
-        <div class="logo-section">
-            <h2>ExpenseTracker</h2>
-            <p>Welcome back, User!</p>
-        </div>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css"
+    />
+    <style>
+      * {
+        margin: 0;
+        padding: 0;
+        box-sizing: border-box;
+        font-family: "Inter", -apple-system, BlinkMacSystemFont, "Segoe UI",
+          Roboto, sans-serif;
+      }
 
-        <ul class="sidebar-menu">
-            <li class="menu-item">
-                <a href="#" class="menu-link active" data-section="dashboard">
-                    <i class="fas fa-gauge"></i>
-                    Dashboard
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link" data-section="expenses">
-                    <i class="fas fa-wallet"></i>
-                    Expenses
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link" data-section="categories">
-                    <i class="fas fa-tags"></i>
-                    Categories
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link" data-section="reports">
-                    <i class="fas fa-chart-pie"></i>
-                    Reports
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link" data-section="budgets">
-                    <i class="fas fa-chart-line"></i>
-                    Budgets
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link" data-section="accounts">
-                    <i class="fas fa-landmark"></i>
-                    Accounts
-                </a>
-            </li>
-            <li class="menu-item">
-                <a href="#" class="menu-link" data-section="settings">
-                    <i class="fas fa-gear"></i>
-                    Settings
-                </a>
-            </li>
-        </ul>
+      body {
+        display: flex;
+        min-height: 100vh;
+        background: linear-gradient(135deg, #0a192f 0%, #1e3a8a 100%);
+        color: #e6f1ff;
+        overflow-x: hidden;
+      }
+
+      /* Sidebar Styles */
+      .sidebar {
+        width: 280px;
+        background: rgba(10, 25, 47, 0.95);
+        color: #e6f1ff;
+        padding: 2rem 1.5rem;
+        position: fixed;
+        height: 100%;
+        transition: width 0.3s ease;
+        backdrop-filter: blur(12px);
+        border-right: 1px solid rgba(100, 255, 218, 0.2);
+      }
+
+      .logo-section {
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: rgba(35, 53, 84, 0.7);
+        border-radius: 12px;
+        text-align: center;
+      }
+
+      .logo-section h2 {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #64ffda;
+      }
+
+      .logo-section p {
+        font-size: 0.95rem;
+        color: #a5b4fc;
+        margin-top: 0.5rem;
+      }
+
+      .sidebar-menu {
+        list-style: none;
+      }
+
+      .menu-item {
+        margin: 0.5rem 0;
+      }
+
+      .menu-link {
+        color: #e6f1ff;
+        text-decoration: none;
+        padding: 0.8rem 1rem;
+        border-radius: 8px;
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        transition: all 0.3s ease;
+        font-size: 1rem;
+        font-weight: 500;
+      }
+
+      .menu-link:hover,
+      .menu-link.active {
+        background: rgba(100, 255, 218, 0.2);
+        color: #64ffda;
+        transform: translateX(5px);
+      }
+
+      .menu-link i {
+        width: 24px;
+        text-align: center;
+        font-size: 1.2rem;
+      }
+
+      /* Main Content Area */
+      .main-content {
+        flex: 1;
+        margin-left: 280px;
+        padding: 2rem;
+        transition: margin-left 0.3s ease;
+      }
+
+      .header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+        padding: 1rem;
+        background: rgba(35, 53, 84, 0.7);
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+      }
+
+      .page-title {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+        text-shadow: 0 2px 4px rgba(0, 0, 0, 0.2);
+      }
+
+      .user-profile {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+      }
+
+      .user-avatar {
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        background: #64ffda;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        color: #0a192f;
+        font-weight: 600;
+        font-size: 1.2rem;
+        box-shadow: 0 2px 8px rgba(100, 255, 218, 0.3);
+      }
+
+      /* Content Sections */
+      .content-section {
+        background: rgba(35, 53, 84, 0.7);
+        padding: 2rem;
+        border-radius: 12px;
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+        display: none;
+        border: 1px solid rgba(100, 255, 218, 0.2);
+      }
+
+      .content-section.active {
+        display: block;
+        animation: fadeIn 0.3s ease-in;
+      }
+
+      @keyframes fadeIn {
+        from {
+          opacity: 0;
+          transform: translateY(10px);
+        }
+        to {
+          opacity: 1;
+          transform: translateY(0);
+        }
+      }
+
+      /* Dashboard Overview Cards */
+      .stats-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin-top: 1.5rem;
+      }
+
+      .stat-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        border-left: 4px solid #64ffda;
+        transition: all 0.3s ease;
+        backdrop-filter: blur(10px);
+      }
+
+      .stat-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.2);
+      }
+
+      .stat-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .stat-label {
+        font-size: 1rem;
+        color: #a5b4fc;
+        margin-top: 0.5rem;
+      }
+
+      /* Expenses Section */
+      .expenses-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .expenses-header h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .add-expense-btn {
+        background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
+      }
+
+      .add-expense-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+        background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
+      }
+
+      /* Modal Styles */
+      .modal {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background: rgba(10, 25, 47, 0.8);
+        z-index: 1000;
+        backdrop-filter: blur(5px);
+      }
+
+      .modal-content {
+        background: rgba(35, 53, 84, 0.9);
+        width: 90%;
+        max-width: 550px;
+        margin: 5rem auto;
+        padding: 2rem;
+        border-radius: 16px;
+        position: relative;
+        border: 1px solid rgba(100, 255, 218, 0.2);
+        box-shadow: 0 8px 32px rgba(0, 0, 0, 0.3);
+        backdrop-filter: blur(10px);
+      }
+
+      .modal-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 1.5rem;
+      }
+
+      .modal-header h3 {
+        font-size: 1.5rem;
+        color: #ffffff;
+      }
+
+      .close-btn {
+        background: none;
+        border: none;
+        font-size: 1.8rem;
+        cursor: pointer;
+        color: #a5b4fc;
+        transition: color 0.3s ease;
+      }
+
+      .close-btn:hover {
+        color: #64ffda;
+      }
+
+      .form-group {
+        margin-bottom: 1.5rem;
+      }
+
+      .form-group label {
+        display: block;
+        margin-bottom: 0.5rem;
+        color: #e6f1ff;
+        font-size: 0.95rem;
+        font-weight: 500;
+      }
+
+      .form-group input,
+      .form-group select,
+      .form-group textarea {
+        width: 100%;
+        padding: 0.8rem;
+        border: 1px solid rgba(100, 255, 218, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e6f1ff;
+        font-size: 1rem;
+        transition: all 0.3s ease;
+      }
+
+      .form-group input:focus,
+      .form-group select:focus,
+      .form-group textarea:focus {
+        outline: none;
+        border-color: #64ffda;
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 8px rgba(100, 255, 218, 0.3);
+      }
+
+      .submit-btn {
+        background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        width: 100%;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
+      }
+
+      .submit-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+        background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
+      }
+
+      .secondary-btn {
+        background: linear-gradient(135deg, #a5b4fc 0%, #6366f1 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        width: 100%;
+        cursor: pointer;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(165, 180, 252, 0.4);
+        margin-top: 0.5rem;
+      }
+
+      .secondary-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(165, 180, 252, 0.6);
+        background: linear-gradient(135deg, #6366f1 0%, #a5b4fc 100%);
+      }
+
+      /* Categories Section */
+      .section-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .section-header h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .date-filter select {
+        padding: 0.8rem;
+        border: 1px solid rgba(100, 255, 218, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e6f1ff;
+        font-size: 0.95rem;
+      }
+
+      .charts-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .chart-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .chart-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.2);
+      }
+
+      .chart-card h3 {
+        font-size: 1.2rem;
+        color: #ffffff;
+        margin-bottom: 1rem;
+      }
+
+      .full-width {
+        grid-column: 1 / -1;
+      }
+
+      .category-list {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-top: 1.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .category-item {
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        padding: 1rem 0;
+        border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      }
+
+      .category-info {
+        display: flex;
+        align-items: center;
+        gap: 1rem;
+        width: 30%;
+      }
+
+      .category-color {
+        width: 24px;
+        height: 24px;
+        border-radius: 6px;
+      }
+
+      .progress-bar {
+        width: 30%;
+        height: 10px;
+        background: rgba(255, 255, 255, 0.1);
+        border-radius: 5px;
+        overflow: hidden;
+      }
+
+      .progress {
+        height: 100%;
+        transition: width 0.3s ease;
+      }
+
+      .budget-info {
+        color: #a5b4fc;
+        font-size: 0.9rem;
+      }
+
+      /* Reports Section */
+      .reports-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .report-controls {
+        display: flex;
+        gap: 1rem;
+        align-items: center;
+      }
+
+      .date-range-picker {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        background: rgba(255, 255, 255, 0.05);
+        padding: 0.5rem;
+        border-radius: 8px;
+      }
+
+      .date-range-picker input {
+        padding: 0.8rem;
+        border: 1px solid rgba(100, 255, 218, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e6f1ff;
+      }
+
+      .generate-report-btn {
+        background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
+      }
+
+      .generate-report-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+        background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
+      }
+
+      .metrics-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .metric-card {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        position: relative;
+        overflow: hidden;
+        backdrop-filter: blur(10px);
+        transition: all 0.3s ease;
+      }
+
+      .metric-card:hover {
+        transform: translateY(-5px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.2);
+      }
+
+      .metric-card::before {
+        content: "";
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 4px;
+        height: 100%;
+      }
+
+      .metric-card.income::before {
+        background: #00c851;
+      }
+      .metric-card.expense::before {
+        background: #ff4444;
+      }
+      .metric-card.savings::before {
+        background: #64ffda;
+      }
+
+      .metric-value {
+        font-size: 1.8rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .metric-label {
+        font-size: 1rem;
+        color: #a5b4fc;
+        margin-top: 0.5rem;
+      }
+
+      .metric-card i {
+        position: absolute;
+        top: 1rem;
+        right: 1rem;
+        font-size: 1.5rem;
+        color: #a5b4fc;
+      }
+
+      .reports-chart-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(400px, 1fr));
+        gap: 1.5rem;
+        margin: 1.5rem 0;
+      }
+
+      .chart-container {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        backdrop-filter: blur(10px);
+      }
+
+      .chart-container h3 {
+        font-size: 1.2rem;
+        color: #ffffff;
+        margin-bottom: 1rem;
+      }
+
+      .detailed-report {
+        background: rgba(255, 255, 255, 0.05);
+        padding: 1.5rem;
+        border-radius: 12px;
+        margin-top: 1.5rem;
+        backdrop-filter: blur(10px);
+      }
+
+      .report-filters {
+        display: flex;
+        gap: 1rem;
+        margin: 1rem 0;
+      }
+
+      .report-filters select {
+        padding: 0.8rem;
+        border: 1px solid rgba(100, 255, 218, 0.2);
+        border-radius: 8px;
+        background: rgba(255, 255, 255, 0.05);
+        color: #e6f1ff;
+        font-size: 0.95rem;
+      }
+
+      .transactions-table {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        overflow-x: auto;
+        backdrop-filter: blur(10px);
+      }
+
+      table {
+        width: 100%;
+        border-collapse: collapse;
+      }
+
+      th,
+      td {
+        padding: 1rem;
+        text-align: left;
+        border-bottom: 1px solid rgba(100, 255, 218, 0.1);
+      }
+
+      th {
+        background: rgba(100, 255, 218, 0.1);
+        color: #e6f1ff;
+        font-weight: 600;
+      }
+
+      td {
+        color: #a5b4fc;
+      }
+
+      .transaction-type {
+        padding: 0.4rem 0.8rem;
+        border-radius: 4px;
+        font-size: 0.85rem;
+      }
+
+      .transaction-type.income {
+        background: rgba(0, 200, 81, 0.2);
+        color: #00c851;
+      }
+
+      .transaction-type.expense {
+        background: rgba(255, 77, 77, 0.2);
+        color: #ff4444;
+      }
+
+      /* Budgets Section */
+      .budgets-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .add-budget-btn {
+        background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
+      }
+
+      .add-budget-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+        background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
+      }
+
+      /* Auto Payments Section */
+      .autopayments-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .autopayments-header h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .add-autopayment-btn {
+        background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
+      }
+
+      .add-autopayment-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+        background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
+      }
+
+      .autopayments-table {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        overflow-x: auto;
+        backdrop-filter: blur(10px);
+      }
+
+      /* Payments Due Section */
+      .paymentsdue-header {
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        margin-bottom: 2rem;
+      }
+
+      .paymentsdue-header h2 {
+        font-size: 1.5rem;
+        font-weight: 600;
+        color: #ffffff;
+      }
+
+      .add-paymentdue-btn {
+        background: linear-gradient(135deg, #64ffda 0%, #22d3ee 100%);
+        color: #0a192f;
+        padding: 0.8rem 1.5rem;
+        border: none;
+        border-radius: 50px;
+        cursor: pointer;
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+        font-weight: 600;
+        transition: all 0.3s ease;
+        box-shadow: 0 4px 15px rgba(100, 255, 218, 0.4);
+      }
+
+      .add-paymentdue-btn:hover {
+        transform: translateY(-3px);
+        box-shadow: 0 6px 20px rgba(100, 255, 218, 0.6);
+        background: linear-gradient(135deg, #22d3ee 0%, #64ffda 100%);
+      }
+
+      .paymentsdue-table {
+        background: rgba(255, 255, 255, 0.05);
+        border-radius: 12px;
+        overflow-x: auto;
+        backdrop-filter: blur(10px);
+      }
+
+      .status-overdue {
+        color: #ff4444;
+        font-weight: 500;
+      }
+
+      .status-pending {
+        color: #00c851;
+        font-weight: 500;
+      }
+
+      .action-buttons {
+        display: flex;
+        gap: 0.5rem;
+      }
+
+      .edit-btn,
+      .delete-btn {
+        background: none;
+        border: none;
+        color: #a5b4fc;
+        cursor: pointer;
+        font-size: 1.2rem;
+        transition: color 0.3s ease;
+      }
+
+      .edit-btn:hover {
+        color: #64ffda;
+      }
+
+      .delete-btn:hover {
+        color: #ff4444;
+      }
+
+      /* Responsive Design */
+      @media (max-width: 768px) {
+        .sidebar {
+          width: 80px;
+        }
+
+        .sidebar .logo-section h2,
+        .sidebar .logo-section p,
+        .sidebar .menu-link span {
+          display: none;
+        }
+
+        .main-content {
+          margin-left: 80px;
+        }
+
+        .expenses-header,
+        .reports-header,
+        .budgets-header,
+        .autopayments-header,
+        .paymentsdue-header {
+          flex-direction: column;
+          gap: 1rem;
+          align-items: flex-start;
+        }
+
+        .add-expense-btn,
+        .add-budget-btn,
+        .add-autopayment-btn,
+        .add-paymentdue-btn,
+        .generate-report-btn {
+          width: 100%;
+          justify-content: center;
+        }
+
+        .charts-grid,
+        .reports-chart-grid {
+          grid-template-columns: 1fr;
+        }
+
+        .stats-grid,
+        .metrics-grid {
+          grid-template-columns: 1fr;
+        }
+      }
+
+      @media (max-width: 480px) {
+        .main-content {
+          padding: 1rem;
+        }
+
+        .modal-content {
+          margin: 2rem auto;
+          padding: 1.5rem;
+        }
+      }
+
+      /* Screen Reader Only */
+      .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        margin: -1px;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        border: 0;
+      }
+    </style>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+      // Simulated data stores
+      let autoPayments = [
+        {
+          id: 1,
+          payee: "Netflix Subscription",
+          amount: 13.99,
+          frequency: "Monthly",
+          nextPayment: "2025-05-01",
+          category: "Entertainment",
+        },
+        {
+          id: 2,
+          payee: "Electricity Bill",
+          amount: 75.0,
+          frequency: "Monthly",
+          nextPayment: "2025-05-15",
+          category: "Utilities",
+        },
+      ];
+
+      let budgets = [
+        { id: 1, category: "Food & Dining", amount: 1500, period: "Monthly" },
+      ];
+
+      let paymentsDue = [
+        {
+          id: 1,
+          payee: "Freelance Client",
+          amount: 500,
+          dueDate: "2025-04-20",
+          category: "Income",
+          description: "Website development",
+        },
+        {
+          id: 2,
+          payee: "Rental Income",
+          amount: 1200,
+          dueDate: "2025-05-01",
+          category: "Housing",
+          description: "Monthly rent",
+        },
+      ];
+
+      // Current date for status checks
+      const today = new Date("2025-04-23");
+
+      // Render Auto Payments Table
+      function renderAutoPayments() {
+        const tableBody = document.querySelector("#autoPaymentsTable tbody");
+        tableBody.innerHTML = "";
+        autoPayments.forEach((payment) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${payment.payee}</td>
+                    <td>₹${payment.amount.toFixed(2)}</td>
+                    <td>${payment.frequency}</td>
+                    <td>${payment.nextPayment}</td>
+                    <td>${payment.category}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-id="${
+                          payment.id
+                        }" aria-label="Edit payment">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" data-id="${
+                          payment.id
+                        }" aria-label="Delete payment">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+          tableBody.appendChild(row);
+        });
+        document
+          .querySelectorAll(".edit-btn")
+          .forEach((btn) =>
+            btn.addEventListener("click", handleEditAutoPayment)
+          );
+        document
+          .querySelectorAll(".delete-btn")
+          .forEach((btn) =>
+            btn.addEventListener("click", handleDeleteAutoPayment)
+          );
+      }
+
+      // Render Payments Due Table
+      function renderPaymentsDue() {
+        const tableBody = document.querySelector("#paymentsDueTable tbody");
+        tableBody.innerHTML = "";
+        paymentsDue.forEach((payment) => {
+          const dueDate = new Date(payment.dueDate);
+          const status = dueDate < today ? "Overdue" : "Pending";
+          const statusClass =
+            status === "Overdue" ? "status-overdue" : "status-pending";
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${payment.payee}</td>
+                    <td>₹${payment.amount.toFixed(2)}</td>
+                    <td>${payment.dueDate}</td>
+                    <td>${payment.category}</td>
+                    <td>${payment.description}</td>
+                    <td><span class="${statusClass}">${status}</span></td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-id="${
+                          payment.id
+                        }" aria-label="Edit payment due">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" data-id="${
+                          payment.id
+                        }" aria-label="Delete payment due">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+          tableBody.appendChild(row);
+        });
+        document
+          .querySelectorAll(".edit-btn")
+          .forEach((btn) =>
+            btn.addEventListener("click", handleEditPaymentDue)
+          );
+        document
+          .querySelectorAll(".delete-btn")
+          .forEach((btn) =>
+            btn.addEventListener("click", handleDeletePaymentDue)
+          );
+      }
+
+      // Render Budgets Table
+      function renderBudgets() {
+        const tableBody = document.querySelector("#budgetsTable tbody");
+        tableBody.innerHTML = "";
+        budgets.forEach((budget) => {
+          const row = document.createElement("tr");
+          row.innerHTML = `
+                    <td>${budget.category}</td>
+                    <td>₹${budget.amount.toFixed(2)}</td>
+                    <td>${budget.period}</td>
+                    <td class="action-buttons">
+                        <button class="edit-btn" data-id="${
+                          budget.id
+                        }" aria-label="Edit budget">
+                            <i class="fas fa-edit"></i>
+                        </button>
+                        <button class="delete-btn" data-id="${
+                          budget.id
+                        }" aria-label="Delete budget">
+                            <i class="fas fa-trash"></i>
+                        </button>
+                    </td>
+                `;
+          tableBody.appendChild(row);
+        });
+        document
+          .querySelectorAll(".edit-btn")
+          .forEach((btn) => btn.addEventListener("click", handleEditBudget));
+        document
+          .querySelectorAll(".delete-btn")
+          .forEach((btn) => btn.addEventListener("click", handleDeleteBudget));
+      }
+
+      // Modal Handlers
+      function openModal(modalId, title, formId, editId = "") {
+        const modal = document.getElementById(modalId);
+        const form = document.getElementById(formId);
+        modal.style.display = "block";
+        form.reset();
+        form.dataset.editId = editId;
+        modal.querySelector(".modal-header h3").textContent = title;
+      }
+
+      function closeModal(modalId) {
+        document.getElementById(modalId).style.display = "none";
+      }
+
+      // Auto Payment Handlers
+      document
+        .getElementById("openAutoPaymentModal")
+        ?.addEventListener("click", () => {
+          openModal(
+            "autoPaymentModal",
+            "Add New Auto Payment",
+            "autoPaymentForm"
+          );
+        });
+
+      document
+        .getElementById("closeAutoPaymentModal")
+        ?.addEventListener("click", () => {
+          closeModal("autoPaymentModal");
+        });
+
+      document
+        .getElementById("autoPaymentForm")
+        ?.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const editId = form.dataset.editId;
+          const newPayment = {
+            id: editId ? parseInt(editId) : autoPayments.length + 1,
+            payee: form.querySelector("#paymentPayee").value,
+            amount: parseFloat(form.querySelector("#paymentAmount").value),
+            frequency: form.querySelector("#paymentFrequency").value,
+            nextPayment: form.querySelector("#nextPaymentDate").value,
+            category: form.querySelector("#paymentCategory").value,
+          };
+          if (editId) {
+            const index = autoPayments.findIndex(
+              (p) => p.id === parseInt(editId)
+            );
+            autoPayments[index] = newPayment;
+          } else {
+            autoPayments.push(newPayment);
+          }
+          renderAutoPayments();
+          closeModal("autoPaymentModal");
+        });
+
+      function handleEditAutoPayment(e) {
+        const id = parseInt(e.currentTarget.dataset.id);
+        const payment = autoPayments.find((p) => p.id === id);
+        if (payment) {
+          openModal(
+            "autoPaymentModal",
+            "Edit Auto Payment",
+            "autoPaymentForm",
+            id
+          );
+          const form = document.getElementById("autoPaymentForm");
+          form.querySelector("#paymentPayee").value = payment.payee;
+          form.querySelector("#paymentAmount").value = payment.amount;
+          form.querySelector("#paymentFrequency").value = payment.frequency;
+          form.querySelector("#nextPaymentDate").value = payment.nextPayment;
+          form.querySelector("#paymentCategory").value = payment.category;
+        }
+      }
+
+      function handleDeleteAutoPayment(e) {
+        const id = parseInt(e.currentTarget.dataset.id);
+        if (confirm("Are you sure you want to delete this auto payment?")) {
+          autoPayments = autoPayments.filter((p) => p.id !== id);
+          renderAutoPayments();
+        }
+      }
+
+      // Payment Due Handlers
+      document
+        .getElementById("openPaymentDueModal")
+        ?.addEventListener("click", () => {
+          openModal("paymentDueModal", "Add New Payment Due", "paymentDueForm");
+        });
+
+      document
+        .getElementById("closePaymentDueModal")
+        ?.addEventListener("click", () => {
+          closeModal("paymentDueModal");
+        });
+
+      document
+        .getElementById("paymentDueForm")
+        ?.addEventListener("submit", (e) => {
+          e.preventDefault();
+          const form = e.target;
+          const editId = form.dataset.editId;
+          const newPayment = {
+            id: editId ? parseInt(editId) : paymentsDue.length + 1,
+            payee: form.querySelector("#duePayee").value,
+            amount: parseFloat(form.querySelector("#dueAmount").value),
+            dueDate: form.querySelector("#dueDate").value,
+            category: form.querySelector("#dueCategory").value,
+            description: form.querySelector("#dueDescription").value,
+          };
+          if (editId) {
+            const index = paymentsDue.findIndex(
+              (p) => p.id === parseInt(editId)
+            );
+            paymentsDue[index] = newPayment;
+          } else {
+            paymentsDue.push(newPayment);
+          }
+          renderPaymentsDue();
+          closeModal("paymentDueModal");
+        });
+
+      // Create Auto Payment from Payment Due
+      document
+        .getElementById("createAutoPayment")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          const dueForm = document.getElementById("paymentDueForm");
+          const payee = dueForm.querySelector("#duePayee").value;
+          const amount = dueForm.querySelector("#dueAmount").value;
+          const category = dueForm.querySelector("#dueCategory").value;
+          if (payee && amount && category) {
+            openModal(
+              "autoPaymentModal",
+              "Add New Auto Payment",
+              "autoPaymentForm"
+            );
+            const autoForm = document.getElementById("autoPaymentForm");
+            autoForm.querySelector("#paymentPayee").value = payee;
+            autoForm.querySelector("#paymentAmount").value = amount;
+            autoForm.querySelector("#paymentCategory").value = category;
+            closeModal("paymentDueModal");
+          } else {
+            alert(
+              "Please fill in Payee, Amount, and Category to create an auto payment."
+            );
+          }
+        });
+
+      // Create Budget from Payment Due
+      document
+        .getElementById("createBudget")
+        ?.addEventListener("click", (e) => {
+          e.preventDefault();
+          const dueForm = document.getElementById("paymentDueForm");
+          const category = dueForm.querySelector("#dueCategory").value;
+          const amount = dueForm.querySelector("#dueAmount").value;
+          if (category && amount) {
+            openModal("budgetModal", "Add New Budget", "budgetForm");
+            const budgetForm = document.getElementById("budgetForm");
+            budgetForm.querySelector("#budgetCategory").value = category;
+            budgetForm.querySelector("#budgetAmount").value = amount;
+            closeModal("paymentDueModal");
+          } else {
+            alert("Please fill in Category and Amount to create a budget.");
+          }
+        });
+
+      function handleEditPaymentDue(e) {
+        const id = parseInt(e.currentTarget.dataset.id);
+        const payment = paymentsDue.find((p) => p.id === id);
+        if (payment) {
+          openModal(
+            "paymentDueModal",
+            "Edit Payment Due",
+            "paymentDueForm",
+            id
+          );
+          const form = document.getElementById("paymentDueForm");
+          form.querySelector("#duePayee").value = payment.payee;
+          form.querySelector("#dueAmount").value = payment.amount;
+          form.querySelector("#dueDate").value = payment.dueDate;
+          form.querySelector("#dueCategory").value = payment.category;
+          form.querySelector("#dueDescription").value = payment.description;
+        }
+      }
+
+      function handleDeletePaymentDue(e) {
+        const id = parseInt(e.currentTarget.dataset.id);
+        if (confirm("Are you sure you want to delete this payment due?")) {
+          paymentsDue = paymentsDue.filter((p) => p.id !== id);
+          renderPaymentsDue();
+        }
+      }
+
+      // Budget Handlers
+      document
+        .getElementById("openBudgetModal")
+        ?.addEventListener("click", () => {
+          openModal("budgetModal", "Add New Budget", "budgetForm");
+        });
+
+      document
+        .getElementById("closeBudgetModal")
+        ?.addEventListener("click", () => {
+          closeModal("budgetModal");
+        });
+
+      document.getElementById("budgetForm")?.addEventListener("submit", (e) => {
+        e.preventDefault();
+        const form = e.target;
+        const editId = form.dataset.editId;
+        const newBudget = {
+          id: editId ? parseInt(editId) : budgets.length + 1,
+          category: form.querySelector("#budgetCategory").value,
+          amount: parseFloat(form.querySelector("#budgetAmount").value),
+          period: form.querySelector("#budgetPeriod").value,
+        };
+        if (editId) {
+          const index = budgets.findIndex((b) => b.id === parseInt(editId));
+          budgets[index] = newBudget;
+        } else {
+          budgets.push(newBudget);
+        }
+        renderBudgets();
+        closeModal("budgetModal");
+      });
+
+      function handleEditBudget(e) {
+        const id = parseInt(e.currentTarget.dataset.id);
+        const budget = budgets.find((b) => b.id === id);
+        if (budget) {
+          openModal("budgetModal", "Edit Budget", "budgetForm", id);
+          const form = document.getElementById("budgetForm");
+          form.querySelector("#budgetCategory").value = budget.category;
+          form.querySelector("#budgetAmount").value = budget.amount;
+          form.querySelector("#budgetPeriod").value = budget.period;
+        }
+      }
+
+      function handleDeleteBudget(e) {
+        const id = parseInt(e.currentTarget.dataset.id);
+        if (confirm("Are you sure you want to delete this budget?")) {
+          budgets = budgets.filter((b) => b.id !== id);
+          renderBudgets();
+        }
+      }
+
+      // Initial Setup
+      document.addEventListener("DOMContentLoaded", () => {
+        renderAutoPayments();
+        renderPaymentsDue();
+        renderBudgets();
+
+        // Expense Modal
+        document
+          .getElementById("openExpenseModal")
+          ?.addEventListener("click", () => {
+            document.getElementById("expenseModal").style.display = "block";
+          });
+
+        document
+          .getElementById("closeExpenseModal")
+          ?.addEventListener("click", () => {
+            document.getElementById("expenseModal").style.display = "none";
+          });
+
+        // Section Switching
+        document.querySelectorAll(".menu-link").forEach((link) => {
+          link.addEventListener("click", (e) => {
+            e.preventDefault();
+            document
+              .querySelectorAll(".menu-link")
+              .forEach((l) => l.classList.remove("active"));
+            document
+              .querySelectorAll(".content-section")
+              .forEach((s) => s.classList.remove("active"));
+            link.classList.add("active");
+            const sectionId = link.dataset.section;
+            document.getElementById(sectionId).classList.add("active");
+            document.querySelector(".page-title").textContent = link
+              .querySelector("span")
+              .textContent.trim();
+          });
+        });
+      });
+    </script>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <nav class="sidebar" aria-label="Main navigation">
+      <div class="logo-section">
+        <h2>ExpenseTracker</h2>
+        <p>Welcome back, User!</p>
+      </div>
+
+      <ul class="sidebar-menu">
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link active"
+            data-section="dashboard"
+            aria-label="Dashboard"
+          >
+            <i class="fas fa-gauge"></i>
+            <span>Dashboard</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="expenses"
+            aria-label="Expenses"
+          >
+            <i class="fas fa-wallet"></i>
+            <span>Expenses</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="categories"
+            aria-label="Categories"
+          >
+            <i class="fas fa-tags"></i>
+            <span>Categories</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="reports"
+            aria-label="Reports"
+          >
+            <i class="fas fa-chart-pie"></i>
+            <span>Reports</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="budgets"
+            aria-label="Budgets"
+          >
+            <i class="fas fa-chart-line"></i>
+            <span>Budgets</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="autopayments"
+            aria-label="Auto Payments"
+          >
+            <i class="fas fa-credit-card"></i>
+            <span>Auto Payments</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="paymentsdue"
+            aria-label="Payments Due"
+          >
+            <i class="fas fa-money-check-alt"></i>
+            <span>Payments Due</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="accounts"
+            aria-label="Accounts"
+          >
+            <i class="fas fa-landmark"></i>
+            <span>Accounts</span>
+          </a>
+        </li>
+        <li class="menu-item">
+          <a
+            href="#"
+            class="menu-link"
+            data-section="settings"
+            aria-label="Settings"
+          >
+            <i class="fas fa-gear"></i>
+            <span>Settings</span>
+          </a>
+        </li>
+      </ul>
     </nav>
 
     <!-- Main Content -->
-    <main class="main-content">
-        <!-- Header -->
-        <div class="header">
-            <h1 class="page-title">Dashboard</h1>
-            <div class="user-profile">
-                <div class="user-avatar">CH</div>
-                <span>Chandan</span>
-            </div>
+    <main class="main-content" aria-label="Main content">
+      <!-- Header -->
+      <header class="header">
+        <h1 class="page-title">Dashboard</h1>
+        <div class="user-profile">
+          <div class="user-avatar" aria-label="User avatar">SM</div>
+          <span>Smith</span>
         </div>
+      </header>
 
-        <!-- Content Sections -->
-        <section id="dashboard" class="content-section active">
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value">₹2,450</div>
-                    <div class="stat-label">Monthly Spending</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">₹1,200</div>
-                    <div class="stat-label">Remaining Budget</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">15</div>
-                    <div class="stat-label">Transactions</div>
-                </div>
+      <!-- Content Sections -->
+      <section
+        id="dashboard"
+        class="content-section active"
+        aria-labelledby="dashboard-title"
+      >
+        <h2 id="dashboard-title" class="sr-only">Dashboard</h2>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">₹2,450</div>
+            <div class="stat-label">Monthly Spending</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">₹1,200</div>
+            <div class="stat-label">Remaining Budget</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">15</div>
+            <div class="stat-label">Transactions</div>
+          </div>
+        </div>
+      </section>
+
+      <section
+        id="expenses"
+        class="content-section"
+        aria-labelledby="expenses-title"
+      >
+        <div class="expenses-header">
+          <h2 id="expenses-title">Expense Tracking</h2>
+          <button
+            class="add-expense-btn"
+            id="openExpenseModal"
+            aria-label="Add new expense"
+          >
+            <i class="fas fa-plus"></i> Add Expense
+          </button>
+        </div>
+        <div class="modal" id="expenseModal" aria-hidden="true">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Add New Expense</h3>
+              <button
+                class="close-btn"
+                id="closeExpenseModal"
+                aria-label="Close modal"
+              >
+                ×
+              </button>
             </div>
-        </section>
+            <form id="expenseForm">
+              <div class="form-group">
+                <label for="expenseDate">Date</label>
+                <input
+                  type="date"
+                  id="expenseDate"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div class="form-group">
+                <label for="expenseCategory">Category</label>
+                <select id="expenseCategory" required aria-required="true">
+                  <option value="">Select Category</option>
+                  <option>Food & Dining</option>
+                  <option>Transportation</option>
+                  <option>Housing</option>
+                  <option>Entertainment</option>
+                  <option>Utilities</option>
+                  <option>Income</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="expenseAmount">Amount</label>
+                <input
+                  type="number"
+                  id="expenseAmount"
+                  step="0.01"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div class="form-group">
+                <label for="expenseDescription">Description</label>
+                <textarea id="expenseDescription" rows="3"></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Save Expense</button>
+            </form>
+          </div>
+        </div>
+      </section>
 
-        <section id="expenses" class="content-section">
-            <div class="expenses-header">
-                <h2>Expense Tracking</h2>
-                <button class="add-expense-btn" id="openExpenseModal">
-                    <i class="fas fa-plus"></i> Add Expense
-                </button>
+      <section
+        id="categories"
+        class="content-section"
+        aria-labelledby="categories-title"
+      >
+        <div class="section-header">
+          <h2 id="categories-title">Expense Categories Analysis</h2>
+          <div class="date-filter">
+            <select id="timePeriod" aria-label="Select time period">
+              <option>Last 30 Days</option>
+              <option>Last 90 Days</option>
+              <option>This Year</option>
+            </select>
+          </div>
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-value">₹4,250</div>
+            <div class="stat-label">Total Spent</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">Food</div>
+            <div class="stat-label">Top Category</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-value">₹1,200</div>
+            <div class="stat-label">Remaining Budget</div>
+          </div>
+        </div>
+        <div class="charts-grid">
+          <div class="chart-card">
+            <h3>Spending Distribution</h3>
+            <canvas
+              id="doughnutChart"
+              aria-label="Spending distribution chart"
+            ></canvas>
+          </div>
+          <div class="chart-card">
+            <h3>Budget vs Actual</h3>
+            <canvas id="barChart" aria-label="Budget vs actual chart"></canvas>
+          </div>
+          <div class="chart-card full-width">
+            <h3>Monthly Trend</h3>
+            <canvas id="lineChart" aria-label="Monthly trend chart"></canvas>
+          </div>
+        </div>
+        <div class="category-list">
+          <h3>Detailed Breakdown</h3>
+          <div class="category-item">
+            <div class="category-info">
+              <div class="category-color" style="background: #4bc0c0"></div>
+              <span>Food & Dining</span>
             </div>
-            <div class="modal" id="expenseModal">
-                <div class="modal-content">
-                    <div class="modal-header">
-                        <h3>Add New Expense</h3>
-                        <button class="close-btn" id="closeExpenseModal">&times;</button>
-                    </div>
-                    <form id="expenseForm">
-                        <div class="form-group">
-                            <label>Date</label>
-                            <input type="date" id="expenseDate" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Category</label>
-                            <select id="expenseCategory" required>
-                                <option value="">Select Category</option>
-                                <option>Food & Dining</option>
-                                <option>Transportation</option>
-                                <option>Housing</option>
-                                <option>Entertainment</option>
-                                <option>Utilities</option>
-                            </select>
-                        </div>
-                        <div class="form-group">
-                            <label>Amount</label>
-                            <input type="number" id="expenseAmount" step="0.01" required>
-                        </div>
-                        <div class="form-group">
-                            <label>Description</label>
-                            <textarea id="expenseDescription" rows="3"></textarea>
-                        </div>
-                        <button type="submit" class="submit-btn">Save Expense</button>
-                    </form>
-                </div>
+            <div class="category-stats">
+              <span>₹1,250</span>
+              <span class="budget-info">of ₹1,500 budget</span>
             </div>
-             
-        </section>
-
-        <section id="categories" class="content-section">
-            <!-- <h2>Expense Categories</h2> -->
-            <!-- Add category management -->
-            <div class="section-header">
-                <h2>Expense Categories Analysis</h2>
-                <div class="date-filter">
-                    <select id="timePeriod">
-                        <option>Last 30 Days</option>
-                        <option>Last 90 Days</option>
-                        <option>This Year</option>
-                    </select>
-                </div>
+            <div class="progress-bar">
+              <div
+                class="progress"
+                style="width: 83%; background: #4bc0c0"
+              ></div>
             </div>
+          </div>
+        </div>
+      </section>
 
-             <!-- Stats Overview -->
-            <div class="stats-grid">
-                <div class="stat-card">
-                    <div class="stat-value">₹4,250</div>
-                    <div class="stat-label">Total Spent</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">Food</div>
-                    <div class="stat-label">Top Category</div>
-                </div>
-                <div class="stat-card">
-                    <div class="stat-value">₹1,200</div>
-                    <div class="stat-label">Remaining Budget</div>
-                </div>
+      <section
+        id="reports"
+        class="content-section"
+        aria-labelledby="reports-title"
+      >
+        <div class="reports-header">
+          <h2 id="reports-title">Financial Reports & Analytics</h2>
+          <div class="report-controls">
+            <div class="date-range-picker">
+              <input type="date" id="startDate" aria-label="Start date" />
+              <span>to</span>
+              <input type="date" id="endDate" aria-label="End date" />
             </div>
+            <button
+              class="generate-report-btn"
+              aria-label="Export report as PDF"
+            >
+              <i class="fas fa-file-export"></i> Export PDF
+            </button>
+          </div>
+        </div>
+        <div class="metrics-grid">
+          <div class="metric-card income">
+            <div class="metric-value">₹5,400</div>
+            <div class="metric-label">Total Income</div>
+            <i class="fas fa-arrow-trend-up"></i>
+          </div>
+          <div class="metric-card expense">
+            <div class="metric-value">₹4,250</div>
+            <div class="metric-label">Total Expenses</div>
+            <i class="fas fa-arrow-trend-down"></i>
+          </div>
+          <div class="metric-card savings">
+            <div class="metric-value">₹1,150</div>
+            <div class="metric-label">Net Savings</div>
+            <i class="fas fa-piggy-bank"></i>
+          </div>
+        </div>
+        <div class="reports-chart-grid">
+          <div class="chart-container">
+            <h3>Spending Trend</h3>
+            <canvas id="trendChart" aria-label="Spending trend chart"></canvas>
+          </div>
+          <div class="chart-container">
+            <h3>Category Comparison</h3>
+            <canvas
+              id="comparisonChart"
+              aria-label="Category comparison chart"
+            ></canvas>
+          </div>
+          <div class="chart-container full-width">
+            <h3>Income vs Expenses</h3>
+            <canvas
+              id="incomeExpenseChart"
+              aria-label="Income vs expenses chart"
+            ></canvas>
+          </div>
+        </div>
+        <div class="detailed-report">
+          <h3>Transaction Details</h3>
+          <div class="report-filters">
+            <select
+              id="transactionType"
+              aria-label="Filter by transaction type"
+            >
+              <option>All Transactions</option>
+              <option>Income</option>
+              <option>Expenses</option>
+            </select>
+            <select id="categoryFilter" aria-label="Filter by category">
+              <option>All Categories</option>
+              <option>Food</option>
+              <option>Transportation</option>
+              <option>Housing</option>
+              <option>Income</option>
+            </select>
+          </div>
+          <div class="transactions-table">
+            <table>
+              <thead>
+                <tr>
+                  <th>Date</th>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Amount</th>
+                  <th>Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr>
+                  <td>2023-03-15</td>
+                  <td>Grocery Shopping</td>
+                  <td>Food</td>
+                  <td class="expense">-₹85.00</td>
+                  <td><span class="transaction-type expense">Expense</span></td>
+                </tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </section>
 
-             <!-- Charts Grid -->
-            <div class="charts-grid">
-                <div class="chart-card">
-                    <h3>Spending Distribution</h3>
-                    <canvas id="doughnutChart"></canvas>
-                </div>
-                
-                <div class="chart-card">
-                    <h3>Budget vs Actual</h3>
-                    <canvas id="barChart"></canvas>
-                </div>
-                
-                <div class="chart-card full-width">
-                    <h3>Monthly Trend</h3>
-                    <canvas id="lineChart"></canvas>
-                </div>
+      <section
+        id="budgets"
+        class="content-section"
+        aria-labelledby="budgets-title"
+      >
+        <div class="budgets-header">
+          <h2 id="budgets-title">Budget Management</h2>
+          <button
+            class="add-budget-btn"
+            id="openBudgetModal"
+            aria-label="Add new budget"
+          >
+            <i class="fas fa-plus"></i> Add Budget
+          </button>
+        </div>
+        <div class="budgets-table">
+          <table id="budgetsTable">
+            <thead>
+              <tr>
+                <th>Category</th>
+                <th>Amount</th>
+                <th>Period</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Budgets will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        <div class="modal" id="budgetModal" aria-hidden="true">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Add New Budget</h3>
+              <button
+                class="close-btn"
+                id="closeBudgetModal"
+                aria-label="Close modal"
+              >
+                ×
+              </button>
             </div>
+            <form id="budgetForm">
+              <div class="form-group">
+                <label for="budgetCategory">Category</label>
+                <select id="budgetCategory" required aria-required="true">
+                  <option value="">Select Category</option>
+                  <option>Food & Dining</option>
+                  <option>Transportation</option>
+                  <option>Housing</option>
+                  <option>Entertainment</option>
+                  <option>Utilities</option>
+                  <option>Income</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="budgetAmount">Amount</label>
+                <input
+                  type="number"
+                  id="budgetAmount"
+                  step="0.01"
+                  required
+                  aria-required="true"
+                  placeholder="e.g., 1500"
+                />
+              </div>
+              <div class="form-group">
+                <label for="budgetPeriod">Period</label>
+                <select id="budgetPeriod" required aria-required="true">
+                  <option value="">Select Period</option>
+                  <option>Weekly</option>
+                  <option>Monthly</option>
+                  <option>Yearly</option>
+                </select>
+              </div>
+              <button type="submit" class="submit-btn">Save Budget</button>
+            </form>
+          </div>
+        </div>
+      </section>
 
-             <!-- Category List -->
-            <div class="category-list">
-                <h3>Detailed Breakdown</h3>
-                <div class="category-item">
-                    <div class="category-info">
-                        <div class="category-color" style="background: #4BC0C0;"></div>
-                        <span>Food & Dining</span>
-                    </div>
-                    <div class="category-stats">
-                        <span>₹1,250</span>
-                        <span class="budget-info">of ₹1,500 budget</span>
-                    </div>
-                    <div class="progress-bar">
-                        <div class="progress" style="width: 83%; background: #4BC0C0;"></div>
-                    </div>
-                </div>
-                <!-- Repeat for other categories -->
+      <section
+        id="autopayments"
+        class="content-section"
+        aria-labelledby="autopayments-title"
+      >
+        <div class="autopayments-header">
+          <h2 id="autopayments-title">Auto Payments</h2>
+          <button
+            class="add-autopayment-btn"
+            id="openAutoPaymentModal"
+            aria-label="Add new auto payment"
+          >
+            <i class="fas fa-plus"></i> Add Auto Payment
+          </button>
+        </div>
+        <div class="autopayments-table">
+          <table id="autoPaymentsTable">
+            <thead>
+              <tr>
+                <th>Payee</th>
+                <th>Amount</th>
+                <th>Frequency</th>
+                <th>Next Payment</th>
+                <th>Category</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Auto payments will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        <div class="modal" id="autoPaymentModal" aria-hidden="true">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Add New Auto Payment</h3>
+              <button
+                class="close-btn"
+                id="closeAutoPaymentModal"
+                aria-label="Close modal"
+              >
+                ×
+              </button>
             </div>
-        </section>
+            <form id="autoPaymentForm">
+              <div class="form-group">
+                <label for="paymentPayee">Payee</label>
+                <input
+                  type="text"
+                  id="paymentPayee"
+                  required
+                  aria-required="true"
+                  placeholder="e.g., Netflix Subscription"
+                />
+              </div>
+              <div class="form-group">
+                <label for="paymentAmount">Amount</label>
+                <input
+                  type="number"
+                  id="paymentAmount"
+                  step="0.01"
+                  required
+                  aria-required="true"
+                  placeholder="e.g., 13.99"
+                />
+              </div>
+              <div class="form-group">
+                <label for="paymentFrequency">Frequency</label>
+                <select id="paymentFrequency" required aria-required="true">
+                  <option value="">Select Frequency</option>
+                  <option>Weekly</option>
+                  <option>Biweekly</option>
+                  <option>Monthly</option>
+                  <option>Quarterly</option>
+                  <option>Yearly</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="nextPaymentDate">Next Payment Date</label>
+                <input
+                  type="date"
+                  id="nextPaymentDate"
+                  required
+                  aria-required="true"
+                />
+              </div>
+              <div class="form-group">
+                <label for="paymentCategory">Category</label>
+                <select id="paymentCategory" required aria-required="true">
+                  <option value="">Select Category</option>
+                  <option>Food & Dining</option>
+                  <option>Transportation</option>
+                  <option>Housing</option>
+                  <option>Entertainment</option>
+                  <option>Utilities</option>
+                  <option>Income</option>
+                </select>
+              </div>
+              <button type="submit" class="submit-btn">
+                Save Auto Payment
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
 
-        <section id="reports" class="content-section">
-            <!-- <h2>Financial Reports</h2> -->
-            <!-- Add charts and reports -->
-            <div class="reports-header">
-                <h2>Financial Reports & Analytics</h2>
-                <div class="report-controls">
-                    <div class="date-range-picker">
-                        <input type="date" id="startDate">
-                        <span>to</span>
-                        <input type="date" id="endDate">
-                    </div>
-                    <button class="generate-report-btn">
-                        <i class="fas fa-file-export"></i> Export PDF
-                    </button>
-                </div>
+      <section
+        id="paymentsdue"
+        class="content-section"
+        aria-labelledby="paymentsdue-title"
+      >
+        <div class="paymentsdue-header">
+          <h2 id="paymentsdue-title">Payments Due</h2>
+          <button
+            class="add-paymentdue-btn"
+            id="openPaymentDueModal"
+            aria-label="Add new payment due"
+          >
+            <i class="fas fa-plus"></i> Add Payment Due
+          </button>
+        </div>
+        <div class="paymentsdue-table">
+          <table id="paymentsDueTable">
+            <thead>
+              <tr>
+                <th>Payee</th>
+                <th>Amount</th>
+                <th>Due Date</th>
+                <th>Category</th>
+                <th>Description</th>
+                <th>Status</th>
+                <th>Actions</th>
+              </tr>
+            </thead>
+            <tbody>
+              <!-- Payments due will be populated by JavaScript -->
+            </tbody>
+          </table>
+        </div>
+        <div class="modal" id="paymentDueModal" aria-hidden="true">
+          <div class="modal-content">
+            <div class="modal-header">
+              <h3>Add New Payment Due</h3>
+              <button
+                class="close-btn"
+                id="closePaymentDueModal"
+                aria-label="Close modal"
+              >
+                ×
+              </button>
             </div>
+            <form id="paymentDueForm">
+              <div class="form-group">
+                <label for="duePayee">Payee</label>
+                <input
+                  type="text"
+                  id="duePayee"
+                  required
+                  aria-required="true"
+                  placeholder="e.g., Freelance Client"
+                />
+              </div>
+              <div class="form-group">
+                <label for="dueAmount">Amount</label>
+                <input
+                  type="number"
+                  id="dueAmount"
+                  step="0.01"
+                  required
+                  aria-required="true"
+                  placeholder="e.g., 500"
+                />
+              </div>
+              <div class="form-group">
+                <label for="dueDate">Due Date</label>
+                <input type="date" id="dueDate" required aria-required="true" />
+              </div>
+              <div class="form-group">
+                <label for="dueCategory">Category</label>
+                <select id="dueCategory" required aria-required="true">
+                  <option value="">Select Category</option>
+                  <option>Food & Dining</option>
+                  <option>Transportation</option>
+                  <option>Housing</option>
+                  <option>Entertainment</option>
+                  <option>Utilities</option>
+                  <option>Income</option>
+                </select>
+              </div>
+              <div class="form-group">
+                <label for="dueDescription">Description</label>
+                <textarea
+                  id="dueDescription"
+                  rows="3"
+                  placeholder="e.g., Website development"
+                ></textarea>
+              </div>
+              <button type="submit" class="submit-btn">Save Payment Due</button>
+              <button
+                type="button"
+                class="secondary-btn"
+                id="createAutoPayment"
+              >
+                Create Auto Payment
+              </button>
+              <button type="button" class="secondary-btn" id="createBudget">
+                Create Budget
+              </button>
+            </form>
+          </div>
+        </div>
+      </section>
 
-             <!-- Key Metrics -->
-            <div class="metrics-grid">
-                <div class="metric-card income">
-                    <div class="metric-value">₹5,400</div>
-                    <div class="metric-label">Total Income</div>
-                    <i class="fas fa-arrow-trend-up"></i>
-                </div>
-                <div class="metric-card expense">
-                    <div class="metric-value">₹4,250</div>
-                    <div class="metric-label">Total Expenses</div>
-                    <i class="fas fa-arrow-trend-down"></i>
-                </div>
-                <div class="metric-card savings">
-                    <div class="metric-value">₹1,150</div>
-                    <div class="metric-label">Net Savings</div>
-                    <i class="fas fa-piggy-bank"></i>
-                </div>
-            </div>
+      <section
+        id="accounts"
+        class="content-section"
+        aria-labelledby="accounts-title"
+      >
+        <h2 id="accounts-title">Connected Accounts</h2>
+      </section>
 
-             <!-- Main Charts -->
-            <div class="reports-chart-grid">
-                <div class="chart-container">
-                    <h3>Spending Trend</h3>
-                    <canvas id="trendChart"></canvas>
-                </div>
-                <div class="chart-container">
-                    <h3>Category Comparison</h3>
-                    <canvas id="comparisonChart"></canvas>
-                </div>
-                <div class="chart-container full-width">
-                    <h3>Income vs Expenses</h3>
-                    <canvas id="incomeExpenseChart"></canvas>
-                </div>
-            </div>
-
-            <!-- Detailed Report -->
-            <div class="detailed-report">
-                <h3>Transaction Details</h3>
-                <div class="report-filters">
-                    <select id="transactionType">
-                        <option>All Transactions</option>
-                        <option>Income</option>
-                        <option>Expenses</option>
-                    </select>
-                    <select id="categoryFilter">
-                        <option>All Categories</option>
-                        <option>Food</option>
-                        <option>Transportation</option>
-                        <option>Housing</option>
-                    </select>
-                </div>
-                <div class="transactions-table">
-                    <table>
-                        <thead>
-                            <tr>
-                                <th>Date</th>
-                                <th>Description</th>
-                                <th>Category</th>
-                                <th>Amount</th>
-                                <th>Type</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            <!-- Sample data -->
-                            <tr>
-                                <td>2023-03-15</td>
-                                <td>Grocery Shopping</td>
-                                <td>Food</td>
-                                <td class="expense">-₹85.00</td>
-                                <td><span class="transaction-type expense">Expense</span></td>
-                            </tr>
-                            <!-- Add more rows -->
-                        </tbody>
-                    </table>
-                </div>
-            </div>
-        </section>
-
-        <section id="budgets" class="content-section">
-            <!-- <h2>Budget Management</h2> -->
-            <!-- Add budget controls -->
-            <div class="budgets-header">
-                <h2>Budget Management</h2>
-                <button class="add-budget-btn" id="openBudgetModal">
-                    <i class="fas fa-plus"></i> Add Budget
-                </button>
-                
-            </div>
-        </section>
-
-        <section id="accounts" class="content-section">
-            <h2>Connected Accounts</h2>
-            <!-- Add account management -->
-        </section>
-
-        <section id="settings" class="content-section">
-            <h2>Account Settings</h2>
-            <!-- Add settings form -->
-        </section>
+      <section
+        id="settings"
+        class="content-section"
+        aria-labelledby="settings-title"
+      >
+        <h2 id="settings-title">Account Settings</h2>
+      </section>
     </main>
-</body>
+  </body>
 </html>
